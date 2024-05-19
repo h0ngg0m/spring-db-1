@@ -1,9 +1,13 @@
 package hello.springdb1.jdbc.repository;
 
+import com.zaxxer.hikari.HikariDataSource;
+import hello.springdb1.jdbc.connection.ConnectionConst;
 import hello.springdb1.jdbc.domain.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
@@ -11,9 +15,22 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
-class MemberRepositoryV0Test {
+class MemberRepositoryV1Test {
 
-    MemberRepositoryV0 repository = new MemberRepositoryV0();
+    MemberRepositoryV1 repository;
+
+    @BeforeEach
+    void setUp() {
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource(ConnectionConst.URL, ConnectionConst.USERNAME, ConnectionConst.PASSWORD);
+
+        // 커넥션 풀링
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl(ConnectionConst.URL);
+        dataSource.setUsername(ConnectionConst.USERNAME);
+        dataSource.setPassword(ConnectionConst.PASSWORD);
+
+        repository = new MemberRepositoryV1(dataSource);
+    }
 
     @Test
     void crud() throws SQLException {
