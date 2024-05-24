@@ -40,3 +40,7 @@ public interface DataSource {
     - 예를 들어서 쿼리 타임아웃, 락과 관련된 오류들이다. 이런 오류들은 데이터베이스 상태가 좋아지거나, 락이 풀렸을 때 다시 시도하면 성공할 수 도 있다.
   - `NonTransient` 는 일시적이지 않다는 뜻이다. 같은 SQL을 그대로 반복해서 실행하면 실패한다.
     - SQL 문법 오류, 데이터베이스 제약조건 위배 등이 있다.
+
+## 트랜잭션 AOP 흐름
+
+<img width="858" alt="Screenshot 2024-05-24 at 12 29 30 PM" src="https://github.com/h0ngg0m/spring-db-1/assets/125632083/f67e673b-0657-4514-9119-072fd311bbb4">
